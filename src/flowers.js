@@ -30,8 +30,6 @@ const flowers = {
 const content = document.querySelector("#content");
 
 const loadPage = () => {
-    console.log("2");
-
     for (let name in flowers) {
         const card = document.createElement("div");
         card.classList = "card";
@@ -65,23 +63,19 @@ const loadPage = () => {
         textSection.appendChild(readMore);
 
         content.appendChild(card);
+        
+        card.addEventListener("mousemove", (e) => {
+            const x = (e.pageX - card.offsetLeft - card.offsetWidth/2) / (card.offsetWidth/2);
+            const y = (e.pageY - card.offsetTop - card.offsetHeight/2) / (card.offsetHeight/2);
+            card.style.transform = `rotate3d(${y}, ${-x}, 0, ${-(Math.min(Math.abs(x) + Math.abs(y), 1))*10}deg)`;
+            card.style.transition = "none";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "rotate3d(0, 0, 0, 0)";
+            card.style.transition = "500ms";
+        });
     }
 }
 
 export default loadPage;
-
-// import Img from './img.jpg';
-
-// function component() {
-//     const element = document.createElement('div');
-
-//     // Add the image to our existing div.
-//     const myImg = new Image();
-//     myImg.src = Img;
-
-//     element.appendChild(myImg);
-
-//     return element;
-// }
-
-// document.body.appendChild(component());
