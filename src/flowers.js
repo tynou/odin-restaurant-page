@@ -29,6 +29,8 @@ const flowers = {
 
 const content = document.querySelector("#content");
 
+const tiltScalar = 12;
+
 const loadPage = () => {
     for (let name in flowers) {
         const card = document.createElement("div");
@@ -67,12 +69,12 @@ const loadPage = () => {
         card.addEventListener("mousemove", (e) => {
             const x = (e.pageX - card.offsetLeft - card.offsetWidth/2) / (card.offsetWidth/2);
             const y = (e.pageY - card.offsetTop - card.offsetHeight/2) / (card.offsetHeight/2);
-            card.style.transform = `rotate3d(${y}, ${-x}, 0, ${-(Math.min(Math.abs(x) + Math.abs(y), 1))*10}deg)`;
+            card.style.transform = `rotateX(${y*tiltScalar}deg) rotateY(${-x*tiltScalar}deg)`;
             card.style.transition = "none";
         });
 
         card.addEventListener("mouseleave", () => {
-            card.style.transform = "rotate3d(0, 0, 0, 0)";
+            card.style.transform = "none";
             card.style.transition = "500ms";
         });
     }
